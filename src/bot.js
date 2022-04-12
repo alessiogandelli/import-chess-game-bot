@@ -20,7 +20,12 @@ async function getUrl(ctx) {
 
     if(pgn[0] == 1) {
         res = await post(pgn)
-        ctx.reply(res.data.url)
+        if(res.data){
+            ctx.reply(res.data.url)
+        }else{
+            ctx.reply('non mi piace come pgn')
+        }
+        
     }
 }
 
@@ -31,7 +36,7 @@ async function post(pgn) {
         return await axios.post('https://lichess.org/api/import', {pgn: pgn })
     } catch (error) {
         console.log('status', error.response.status)
-        throw Error("errrore")
+        return('non mi piace come pgn')
     }
 }
 
